@@ -11,5 +11,14 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Vector3 followOffset = new Vector3(0f, 1f, -2.6f);
     private Transform robotTransform;
 
-    
+    private void Start()
+    {
+        //get the robot's reference
+        robotTransform = GameObject.FindGameObjectWithTag("Robot").transform;
+    }
+
+    //update camera's position in late update (makes sure everything else has been already updated - e.g the robot's movement, which runs in Update())
+    void LateUpdate()
+    {
+        transform.position = robotTransform.position + followOffset;
 }
