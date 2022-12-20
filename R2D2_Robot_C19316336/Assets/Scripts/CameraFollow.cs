@@ -21,4 +21,5 @@ public class CameraFollow : MonoBehaviour
     void LateUpdate()
     {
         transform.position = robotTransform.position + followOffset;
+    }
 }
