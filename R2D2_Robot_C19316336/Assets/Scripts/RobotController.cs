@@ -27,4 +27,49 @@ public class RobotController : MonoBehaviour
     [SerializeField] private KeyCode robotRotationRight = KeyCode.D;
     [SerializeField] private KeyCode headRotationLeft = KeyCode.LeftArrow;
     [SerializeField] private KeyCode headRotationRight = KeyCode.RightArrow;
+
+    private void Update()
+    {
+        RobotMovementAndRotationInput();
+
+        RobotHeadRotationInput();   
+    }
+
+    //tracks player's input and moves/rotates the robot as required
+    private void RobotMovementAndRotationInput()
+    {
+        if (Input.GetKey(forwardMovement))
+        {
+            transform.position += transform.forward * robotMovementSpeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey(backwardMovement))
+        {
+            transform.position += -transform.forward * robotMovementSpeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey(robotRotationLeft))
+        {
+            transform.Rotate(transform.up, -robotRotationSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(robotRotationRight))
+        {
+            transform.Rotate(transform.up, robotRotationSpeed * Time.deltaTime);
+        }
+    }
+
+    //tracks player's input and rotates the robot's head as required
+    private void RobotHeadRotationInput()
+    {
+        if (Input.GetKey(headRotationLeft))
+        {
+            robotHead.transform.Rotate(transform.up, -headRotationSpeed * Time.deltaTime, Space.World); //head should rotate on the up axis of the WORLD in order to make sure that it's truly pointing up (local up might point in another direction)
+        }
+
+        if (Input.GetKey(headRotationRight))
+        {
+            robotHead.transform.Rotate(transform.up, headRotationSpeed * Time.deltaTime, Space.World);
+        }
+    }
 }
